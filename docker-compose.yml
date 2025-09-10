@@ -1,7 +1,7 @@
 services:
   frontend:
     image: stivenc30/licitaciones-frontend:latest
-    container_name: frontend-container-multi-tenant
+    container_name: frontend-licitaciones-container-multi-tenant
     ports:
       - ${VITE_PORT_FRONTEND_CONTAINER}:80
     environment:
@@ -13,7 +13,7 @@ services:
 
   backend:
     image: stivenc30/licitaciones-api-rest:latest
-    container_name: backend-container-multi-tenant
+    container_name: backend-licitaciones-container-multi-tenant
     ports:
       - ${PORT_BACKEND_CONTAINER}:${PORT_BACKEND}
     environment:
