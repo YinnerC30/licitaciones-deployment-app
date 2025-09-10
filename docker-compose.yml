@@ -56,6 +56,16 @@ services:
     networks:
       - private_licitaciones_network
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-licitaciones
+    ports:
+      - '${PHMADMIN_PORT}:80'
+    depends_on:
+      - db
+    networks:
+      - private_licitaciones_network
+
 networks:
   public_licitaciones_network:
     driver: bridge
