@@ -18,15 +18,15 @@ services:
       - ${PORT_BACKEND_CONTAINER}:${PORT_BACKEND}
     environment:
       - DB_HOST=server-db-licitaciones-multi-tenant
-      - DB_PORT=3306
+      - DB_PORT=${DB_PORT}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_NAME=${DB_NAME}
       - JWT_SECRET=${JWT_SECRET}
-      - PORT=${PORT}
+      - PORT_APP=${PORT_APP}
       - NODE_ENV=${NODE_ENV}
     volumes:
-      - data-logs-licitaciones-backend:/app/logs
+      - data-logs-licitaciones-backend:/app/logs #TODO: Pendiente de configurar
     depends_on:
       - db
     networks:
