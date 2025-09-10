@@ -1,0 +1,33 @@
+# Git
+.git
+.gitignore
+
+# Dependencias
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Desarrollo
+.env
+.env.*
+*.md
+.vscode
+.idea
+
+# Testing
+coverage
+__tests__
+*.test.js
+*.spec.js
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de construcción
+dist
+build
+*.log
+
+data-server-db-development

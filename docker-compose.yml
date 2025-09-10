@@ -1,0 +1,70 @@
+services:
+  frontend:
+    image: stivenc30/licitaciones-frontend:latest
+    container_name: frontend-container-multi-tenant
+    ports:
+      - ${VITE_PORT_FRONTEND_CONTAINER}:80
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+    depends_on:
+      - backend
+    networks:
+      - public_licitaciones_network
+
+  backend:
+    image: stivenc30/licitaciones-api-rest:latest
+    container_name: backend-container-multi-tenant
+    ports:
+      - ${PORT_BACKEND_CONTAINER}:${PORT_BACKEND}
+    environment:
+      - DB_HOST=server-db-licitaciones-multi-tenant
+      - DB_PORT=3306
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=${PORT}
+      - NODE_ENV=${NODE_ENV}
+    volumes:
+      - data-logs-licitaciones-backend:/app/logs
+    depends_on:
+      - db
+    networks:
+      - public_licitaciones_network
+      - private_licitaciones_network
+
+  db:
+    image: mysql:8
+    container_name: server-db-licitaciones-multi-tenant
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'mysqladmin ping -h localhost -u${DB_USERNAME} -p${DB_PASSWORD}',
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - data-server-db-licitaciones-multi-tenant:/var/lib/mysql
+    restart: always
+    networks:
+      - private_licitaciones_network
+
+networks:
+  public_licitaciones_network:
+    driver: bridge
+    name: public_licitaciones_network
+  private_licitaciones_network:
+    driver: bridge
+    name: private_licitaciones_network
+
+volumes:
+  data-scripts-server-db-licitaciones-multi-tenant:
+  data-server-db-licitaciones-multi-tenant:
+  data-logs-licitaciones-backend:
