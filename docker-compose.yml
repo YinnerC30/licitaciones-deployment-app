@@ -15,7 +15,7 @@ services:
     image: stivenc30/licitaciones-api-rest:latest
     container_name: backend-licitaciones-container-multi-tenant
     ports:
-      - ${PORT_BACKEND_CONTAINER}:${PORT_BACKEND}
+      - ${PORT_BACKEND_CONTAINER}:${PORT_APP}
     environment:
       - DB_HOST=server-db-licitaciones-multi-tenant
       - DB_PORT=${DB_PORT}
