@@ -59,7 +59,7 @@ services:
       - data-server-db-licitame-multi-tenant:/var/lib/mysql
     restart: always
     networks:
-      - private_licitaciones_network
+      - private_licitame_network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
