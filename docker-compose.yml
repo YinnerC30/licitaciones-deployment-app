@@ -1,7 +1,7 @@
 services:
   frontend:
     image: stivenc30/licitaciones-frontend:latest
-    container_name: frontend-licitaciones-container-multi-tenant
+    container_name: frontend-licitame-container-multi-tenant
     ports:
       - ${VITE_PORT_FRONTEND_CONTAINER}:80
     environment:
@@ -9,15 +9,15 @@ services:
     depends_on:
       - backend
     networks:
-      - public_licitaciones_network
+      - public_licitame_network
 
   backend:
     image: stivenc30/licitaciones-api-rest:latest
-    container_name: backend-licitaciones-container-multi-tenant
+    container_name: backend-licitame-container-multi-tenant
     ports:
       - ${PORT_BACKEND_CONTAINER}:${PORT_APP}
     environment:
-      - DB_HOST=server-db-licitaciones-multi-tenant
+      - DB_HOST=server-db-licitame-multi-tenant
       - DB_PORT=${DB_PORT}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
@@ -29,17 +29,18 @@ services:
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_REGION=${AWS_REGION}
       - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      - S3_ENDPOINT=${S3_ENDPOINT}
     volumes:
-      - data-logs-licitaciones-backend:/app/logs #TODO: Pendiente de configurar
+      - data-logs-licitame-backend:/app/logs #TODO: Pendiente de configurar
     depends_on:
       - db
     networks:
-      - public_licitaciones_network
-      - private_licitaciones_network
+      - public_licitame_network
+      - private_licitame_network
 
   db:
     image: mysql:8
-    container_name: server-db-licitaciones-multi-tenant
+    container_name: server-db-licitame-multi-tenant
     environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USERNAME}
@@ -55,16 +56,16 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - data-server-db-licitaciones-multi-tenant:/var/lib/mysql
+      - data-server-db-licitame-multi-tenant:/var/lib/mysql
     restart: always
     networks:
       - private_licitaciones_network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin-licitaciones
+    container_name: phpmyadmin-licitame
     environment:
-      - PMA_HOST=server-db-licitaciones-multi-tenant
+      - PMA_HOST=server-db-licitame-multi-tenant
       - PM_PORT=${DB_PORT}
       - PMA_USER=${DB_USERNAME}
       - PMA_PASSWORD=${DB_PASSWORD}
@@ -77,12 +78,12 @@ services:
       - private_licitaciones_network
 
 networks:
-  public_licitaciones_network:
+  public_licitame_network:
     driver: bridge
-    name: public_licitaciones_network
-  private_licitaciones_network:
+    name: public_licitame_network
+  private_licitame_network:
     driver: bridge
-    name: private_licitaciones_network
+    name: private_licitame_network
 
 volumes:
   data-scripts-server-db-licitaciones-multi-tenant:
