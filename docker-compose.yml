@@ -75,7 +75,7 @@ services:
     depends_on:
       - db
     networks:
-      - private_licitaciones_network
+      - private_licitame_network
 
 networks:
   public_licitame_network:
