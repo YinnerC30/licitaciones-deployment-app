@@ -86,6 +86,6 @@ networks:
     name: private_licitame_network
 
 volumes:
-  data-scripts-server-db-licitaciones-multi-tenant:
-  data-server-db-licitaciones-multi-tenant:
-  data-logs-licitaciones-backend:
+  data-scripts-server-db-licitame-multi-tenant:
+  data-server-db-licitame-multi-tenant:
+  data-logs-licitame-backend:
