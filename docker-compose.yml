@@ -66,9 +66,9 @@ services:
     container_name: phpmyadmin-licitame
     environment:
       - PMA_HOST=server-db-licitame-multi-tenant
-      - PM_PORT=${DB_PORT}
-      - PMA_USER=${DB_USERNAME}
-      - PMA_PASSWORD=${DB_PASSWORD}
+      # - PM_PORT=${DB_PORT}
+      # - PMA_USER=${DB_USERNAME}
+      # - PMA_PASSWORD=${DB_PASSWORD}
       # - PMA_DB=${DB_NAME}
     ports:
       - '${PHMADMIN_PORT}:80'
